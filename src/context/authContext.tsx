@@ -15,19 +15,23 @@ type ContextProviderValue = {
   handleLogout: () => void;
 };
 
+type StoredData = User | boolean | null;
+
 export const AuthContext = createContext<ContextProviderValue | undefined>(undefined);
 export const useAuth = () => {
   const userData = useContext(AuthContext);
 
-  if (userData === undefined) {
-    throw new Error('User is undefined');
-  }
+  if (!userData) throw new Error('User is undefined');
 
   return userData;
 };
 
-const getStoredUser = (): User | null => {
-  return JSON.parse(localStorage.getItem('user') || 'null');
+const getStoredData = <T extends StoredData>(item: string): T => {
+  const storedData = localStorage.getItem(item);
+
+  if (!storedData) return null as T;
+
+  return JSON.parse(storedData) as T;
 };
 
 export function AuthContextProvider({ children }: { children: React.ReactNode }) {
@@ -35,11 +39,12 @@ export function AuthContextProvider({ children }: { children: React.ReactNode })
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = getStoredUser();
-    const isRemembered = JSON.parse(localStorage.getItem('isRemembered') || 'false');
-    if (storedUser && isRemembered) {
-      setUser(storedUser);
-    }
+    const storedUser = getStoredData<User>('user');
+    const isRemembered = getStoredData<boolean>('isRemembered');
+
+    if (!storedUser || !isRemembered) return;
+
+    setUser(storedUser);
   }, []);
 
   const handleRegister = (data: User) => {
@@ -48,19 +53,19 @@ export function AuthContextProvider({ children }: { children: React.ReactNode })
   };
 
   const handleLogin = (data: User) => {
-    const storedUser = getStoredUser();
+    const storedUser = getStoredData<User>('user');
 
     if (storedUser && data.email === storedUser.email && data.password === storedUser.password) {
       setUser(storedUser);
 
-      navigate('/');
-
       if (data.isRemembered) {
         localStorage.setItem('isRemembered', JSON.stringify(true));
       }
-    } else {
-      console.error('Wrong email or password');
+
+      return navigate('/');
     }
+
+    console.error('Wrong email or password');
   };
 
   const handleLogout = () => {
