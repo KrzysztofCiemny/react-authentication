@@ -1,7 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { useAuth } from '../context/authContext';
+import { useAuth } from 'context/authContext';
+import { NavLink } from 'react-router-dom';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -25,38 +26,41 @@ export function Login() {
   };
 
   return (
-    <div className="flex justify-center content-center">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col justify-center w-80 rounded-lg p-5 shadow-lg gap-5"
-      >
-        <input
-          {...register('email')}
-          type="text"
-          placeholder="email"
-          className="shadow-sm p-2 rounded-md"
-        />
-        {errors.email && <div className="text-red-500">{errors.email.message}</div>}
-        <input
-          {...register('password')}
-          type="password"
-          placeholder="password"
-          className="shadow-sm p-2 rounded-md"
-        />
-        {errors.password && <div className="text-red-500">{errors.password.message}</div>}
-        <div className="flex justify-center gap-2">
+    <>
+      <div className="flex justify-center">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col justify-center w-80 rounded-lg p-5 shadow-lg gap-5"
+        >
           <input
-            {...register('isRemembered')}
-            type="checkbox"
-            id="rememberMe"
-            className="cursor-pointer"
+            {...register('email')}
+            type="text"
+            placeholder="email"
+            className="shadow-sm p-2 rounded-md"
           />
-          <label htmlFor="rememberMe">Remember Me</label>
-        </div>
-        <button type="submit" className="text-black bg-yellow-500 rounded-lg py-2">
-          Submit
-        </button>
-      </form>
-    </div>
+          {errors.email && <div className="text-red-500">{errors.email.message}</div>}
+          <input
+            {...register('password')}
+            type="password"
+            placeholder="password"
+            className="shadow-sm p-2 rounded-md"
+          />
+          {errors.password && <div className="text-red-500">{errors.password.message}</div>}
+          <div className="flex justify-center gap-2">
+            <input
+              {...register('isRemembered')}
+              type="checkbox"
+              id="rememberMe"
+              className="cursor-pointer"
+            />
+            <label htmlFor="rememberMe">Remember Me</label>
+          </div>
+          <button type="submit" className="text-black bg-yellow-500 rounded-lg py-2">
+            Log in
+          </button>
+          <NavLink to="/register-first">Or create account</NavLink>
+        </form>
+      </div>
+    </>
   );
 }
