@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { FirstFormInputs, SecondFormInputs } from 'models/registration';
+import { FirstFormInputs, SecondFormInputs } from 'types/registration';
 
 export const UserSchema = z.object({
   email: z.string(),

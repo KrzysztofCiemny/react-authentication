@@ -1,8 +1,8 @@
-import { Home } from '@pages/Home';
-import { Login } from '@pages/Login';
-import { RegisterFirstStep } from '@pages/Register/RegisterFirstStep';
-import { Private } from '@pages/PrivatePage';
-import { RegisterSecondStep } from '@pages/Register/RegisterSecondStep';
+import { Home } from 'pages/Home';
+import { Login } from 'pages/Login';
+import { RegisterFirstStep } from 'pages/Register/RegisterFirstStep';
+import { Private } from 'pages/PrivatePage';
+import { RegisterSecondStep } from 'pages/Register/RegisterSecondStep';
 
 export const publicRoutes = new Set(['/register-first', '/register-second', '/login']);
 
