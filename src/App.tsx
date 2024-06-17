@@ -1,12 +1,12 @@
 import { BrowserRouter } from 'react-router-dom';
 import { AuthContextProvider } from './context/authContext';
-import { Wrapper } from './components/Wrapper/Wrapper';
+import { AppWrapper } from './components/Wrapper/AppWrapper';
 
 function App() {
   return (
     <BrowserRouter>
       <AuthContextProvider>
-        <Wrapper />
+        <AppWrapper />
       </AuthContextProvider>
     </BrowserRouter>
   );

@@ -1,25 +1,17 @@
 import { NavLink } from 'react-router-dom';
-import { useAuth } from 'context/authContext';
-import { navLinks } from 'data/navLinks';
+import { navLinks } from '@data/navLinks';
+import { buttonVariants } from '@components/ui/button';
 
 export function Navigation() {
-  const { user, handleLogout } = useAuth();
   return (
-    <div className="py-8 bg-black">
-      <ul className="flex justify-center gap-4 text-white">
+    <nav>
+      <ul className="flex justify-center">
         {navLinks.map(({ path, name }) => (
-          <NavLink key={path} to={path}>
+          <NavLink key={path} to={path} className={buttonVariants({ variant: 'link' })}>
             {name}
           </NavLink>
         ))}
-        {user ? (
-          <li onClick={() => handleLogout()} className="cursor-pointer">
-            log out
-          </li>
-        ) : (
-          <NavLink to="/login">Log in</NavLink>
-        )}
       </ul>
-    </div>
+    </nav>
   );
 }

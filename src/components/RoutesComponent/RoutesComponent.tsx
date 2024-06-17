@@ -1,6 +1,6 @@
-import { ProtectedRoute } from 'components/ProtectedRoute/ProtectedRoute';
+import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 import { Route, Routes } from 'react-router-dom';
-import { routesData } from 'data/routesData';
+import { routesData } from '@data/routesData';
 
 export const RoutesComponent = () => {
   return (
