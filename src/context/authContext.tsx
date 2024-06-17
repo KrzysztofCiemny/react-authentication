@@ -1,13 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { publicRoutes } from 'data/routesData';
+import { publicRoutes } from '@data/routesData';
 import {
   User,
   ContextProviderValue,
   StoredData,
   UserSchema,
   RegisterFormInputs,
-} from 'types/context';
+} from '@models/context';
 
 export const AuthContext = createContext<ContextProviderValue | undefined>(undefined);
 export const useAuth = () => {
